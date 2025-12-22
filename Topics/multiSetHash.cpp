@@ -1,6 +1,6 @@
 /*
 Reference
-https://codeforces.com/gym/101808/problem/G
+https://codeforces.com/gym/101808/problem/B
 
 */
 
