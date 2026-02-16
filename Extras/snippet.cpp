@@ -95,6 +95,92 @@
 			"for(int i = 0; i < n; i++)"
 		],
 		"description": ""
+	},
+	"toseetestcaseCF": {
+		"prefix": "qwstringoutput",
+		"body": [
+			"if(tc == 1){",
+			"    int n;cin>>n;",
+			"    string s = to_string(n);",
+			"    int a[n];for(int i = 0; i < n; i++){",
+			"        cin>>a[i];",
+			"        s += \"_\" + to_string(a[i]);",
+			"    }",
+			"    cout<<s<<nl;",
+			"}",
+			"else solve();"
+		],
+		"description": "toseetestcaseCF"
+	},
+	"binPow": {
+		"prefix": "qwbinpow",
+		"body": [
+			"int binPow(int a, int b, int mod){",
+			"    int res = 1;",
+			"    while(b > 0){",
+			"        if(b & 1){",
+			"            res = (res * a) % mod;",
+			"        }",
+			"        a = (a * a) % mod;",
+			"        b >>= 1;",
+			"    }",
+			"    return res;",
+			"}"
+		],
+		"description": ""
+	},
+	"prec": {
+		"prefix": "qwprec",
+		"body": [
+			"int fact[sz];",
+			"",
+			"void prec(){",
+			"    fact[0] = 1;",
+			"    for(int i = 1; i < sz;i++){",
+			"        fact[i] = (fact[i - 1] * i) % mod;",
+			"    }",
+			"}",
+			"",
+			"vector<int> primes, isPrime(sz + 1, 1);",
+			"",
+			"void prec(){",
+			"	isPrime[0] = 0, isPrime[1] = 0;",
+			"	for(int i = 2;i <= sz; i++){",
+			"        if(isPrime[i])primes.push_back(i);",
+			"        if(sz / i < i)continue;",
+			"		for(int j = i * i; j <= sz; j+= i){",
+			"			isPrime[j] = 0;",
+			"		}",
+			"	}",
+			"}",
+			"",
+			"vector<int> divi[sz + 5];",
+			"",
+			"void prec(){",
+			"    for(int i = 1; i <= sz; i++){",
+			"        for(int j = i; j <= sz; j+=i){",
+			"            divi[j].push_back(i);",
+			"        }",
+			"    }",
+			"}",
+			"",
+			"",
+			"vector<int> primes, spfa(sz + 1);",
+			"",
+			"void prec(){",
+			"	for(int i = 0; i <= sz; i++)spfa[i] = i;",
+			"	for(int i = 2;i <= sz; i++){",
+			"        if(spfa[i] != i)continue;",
+			"        primes.push_back(i);",
+			"        if(sz / i < i)continue;",
+			"		for(int j = i * i; j <= sz; j+= i){",
+			"			if(spfa[j] != j)continue;",
+			"            spfa[j] = i;",
+			"		}",
+			"	}",
+			"}"
+		],
+		"description": ""
 	}
 }
 

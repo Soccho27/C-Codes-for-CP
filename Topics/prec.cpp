@@ -1,5 +1,3 @@
-
-const int sz=5000;
 int fact[sz];
 
 void prec(){

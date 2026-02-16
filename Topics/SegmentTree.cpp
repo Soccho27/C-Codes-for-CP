@@ -18,10 +18,10 @@ int updateSeg(int indx,int lo,int hi,int l,int val){
 }
 
 int query(int indx,int lo,int hi,int l,int r){
-    if((lo > r) || (hi < l))return 0;//no overlap
-    if((lo >= l) && (hi <= r)){return seg[indx];}//exact
+    if((lo > r) || (hi < l))return 0;
+    if((lo >= l) && (hi <= r)){return seg[indx];}
     int mid = (lo + hi) / 2;
-    return query(2*indx+1, lo, mid, l, r) + query(2*indx+2, mid+1, hi, l, r); // overlap
+    return query(2*indx+1, lo, mid, l, r) + query(2*indx+2, mid+1, hi, l, r);
 }
 
 

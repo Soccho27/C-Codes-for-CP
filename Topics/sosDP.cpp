@@ -1,3 +1,4 @@
+int sz = 20;
 void ok(){
     for(int j = 1; j <= sz; j++){
         for(int i = (1 << sz) - 1; i > 0; i--){
@@ -16,7 +17,7 @@ void ok(){
                 dpAnd[i] = dpAnd[i];
             }
             else{
-                dpAnd[i] = dpAnd[i] + dpAnd[i ^ (1 << (j - 1))];  
+                dpAnd[i] = dpAnd[i] + dpAnd[i ^ (1 << (j - 1))];
             }
         }
     }
