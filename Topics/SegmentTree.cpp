@@ -1,4 +1,6 @@
 5. SegmentTree
+
+// l,r SUM
 vector<int> seg(4*sz+10);
 vector<int> a;
 
@@ -25,62 +27,47 @@ int query(int indx,int lo,int hi,int l,int r){
 }
 
 
-// MAX
-int buildSeg(int idx, int lo, int hi) {
-    if (lo == hi) return seg[idx] = arr[lo];
+//MAX
+vector<int> seg(4*sz+10);
+
+int updateSeg(int indx,int lo,int hi,int l,int val){
+    if((lo > l) || (hi < l))return seg[indx];
+    if(lo == hi && lo == l){
+        return seg[indx] = val;
+    }
     int mid = (lo + hi) / 2;
-    return seg[idx] = max(
-        buildSeg(idx*2+1, lo, mid),
-        buildSeg(idx*2+2, mid+1, hi)
-    );
+    return seg[indx] = max(updateSeg(2*indx+1, lo, mid, l, val), updateSeg(2*indx+2, mid+1, hi, l, val));
 }
 
-int updateSeg(int idx, int lo, int hi, int pos, int val) {
-    if (pos < lo || pos > hi) return seg[idx];
-    if (lo == hi) return seg[idx] = val;
+int query(int indx,int lo,int hi,int l,int r){
+    if((lo > r) || (hi < l))return -inf;
+    if((lo >= l) && (hi <= r)){return seg[indx];}
     int mid = (lo + hi) / 2;
-    return seg[idx] = max(
-        updateSeg(idx*2+1, lo, mid, pos, val),
-        updateSeg(idx*2+2, mid+1, hi, pos, val)
-    );
+    return max(query(2*indx+1, lo, mid, l, r), query(2*indx+2, mid+1, hi, l, r));
 }
 
-int getSeg(int idx, int lo, int hi, int l, int r) {
-    if (hi < l || lo > r) return INT_MIN;
-    if (l <= lo && hi <= r) return seg[idx];
-    int mid = (lo + hi) / 2;
-    return max(
-        getSeg(idx*2+1, lo, mid, l, r),
-        getSeg(idx*2+2, mid+1, hi, l, r)
-    );
-}
 
-//MIN
-int buildSeg(int idx, int lo, int hi) {
-    if (lo == hi) return seg[idx] = arr[lo];
-    int mid = (lo + hi) / 2;
-    return seg[idx] = min(
-        buildSeg(idx*2+1, lo, mid),
-        buildSeg(idx*2+2, mid+1, hi)
-    );
+// l,r range maximum value with it's index(witout update function)
+vector<pair<int, int> > seg(4*sz+10);
+vector<int> v;
+ 
+pair<int, int> buildSeg(int indx, int lo, int hi){
+    if(lo == hi)return seg[indx] = {v[lo], lo};
+    int mid = (lo+hi) / 2;
+    auto it1 = buildSeg(2*indx+1, lo, mid), it2 = buildSeg(2*indx+2, mid+1, hi);
+    if(it1.first >= it2.first){
+        return seg[indx] = it1;
+    }
+    else {
+        return seg[indx] = it2;
+    }
 }
-
-int updateSeg(int idx, int lo, int hi, int pos, int val) {
-    if (pos < lo || pos > hi) return seg[idx];
-    if (lo == hi) return seg[idx] = val;
+ 
+pair<int, int> query(int indx,int lo,int hi,int l,int r){
+    if((lo > r) || (hi < l))return {-inf,0};
+    if((lo >= l) && (hi <= r)){return seg[indx];}
     int mid = (lo + hi) / 2;
-    return seg[idx] = min(
-        updateSeg(idx*2+1, lo, mid, pos, val),
-        updateSeg(idx*2+2, mid+1, hi, pos, val)
-    );
-}
-
-int getSeg(int idx, int lo, int hi, int l, int r) {
-    if (hi < l || lo > r) return INT_MAX;
-    if (l <= lo && hi <= r) return seg[idx];
-    int mid = (lo + hi) / 2;
-    return min(
-        getSeg(idx*2+1, lo, mid, l, r),
-        getSeg(idx*2+2, mid+1, hi, l, r)
-    );
+    auto it1 = query(2*indx+1, lo, mid, l, r), it2 = query(2*indx+2, mid+1, hi, l, r);
+    if(it1.first >= it2.first)return it1;
+    else return it2;
 }

@@ -59,7 +59,7 @@ void prec(){
     }
 }
 
-int binPow(int a, int b, int mod){
+int binPow(int a, int b){
     int res = 1;
     while(b > 0){
         if(b & 1){
@@ -73,6 +73,6 @@ int binPow(int a, int b, int mod){
 
 int ncr(int n, int r){
     int dw = (fact[r] * fact[n - r]) % mod;
-    int inv = binPow(dw, mod - 2, mod);
+    int inv = binPow(dw, mod - 2);
     return (fact[n] * inv) % mod;
 }

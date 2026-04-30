@@ -1,7 +1,7 @@
-int sz = 20;
+int btSz = 20;
 void ok(){
-    for(int j = 1; j <= sz; j++){
-        for(int i = (1 << sz) - 1; i > 0; i--){
+    for(int j = 1; j <= btSz; j++){
+        for(int i = (1 << btSz) - 1; i > 0; i--){
             if((i >> (j - 1)) & 1){
                 dpOr[i] = dpOr[i] + dpOr[i ^ (1 << (j - 1))];
             }
@@ -11,8 +11,8 @@ void ok(){
         }
     }
  
-    for(int j = 1; j <= sz; j++){
-        for(int i = 1; i < (1 << sz); i++){
+    for(int j = 1; j <= btSz; j++){
+        for(int i = 1; i < (1 << btSz); i++){
             if((i >> (j - 1)) & 1){
                 dpAnd[i] = dpAnd[i];
             }
@@ -24,8 +24,8 @@ void ok(){
 }
 
 void ok(){
-    for(int i = 1; i < (1 << sz); i++){
-        for(int j = 1; j <= sz; j++){
+    for(int i = 1; i < (1 << btSz); i++){
+        for(int j = 1; j <= btSz; j++){
             if((i >> (j - 1)) & 1){
                 dpOr[i][j] = dpOr[i][j - 1] + dpOr[i ^ (1 << (j - 1))][j - 1];  // ekhane j - 1 diye j - 1th bit sorache abar ager value theke ana hoche, ekhane j, 1 based ei jonne value soranor time a j - 1 kora hoise
             }
@@ -35,8 +35,8 @@ void ok(){
         }
     }
  
-    for(int i = (1 << sz) - 1; i > 0; i--){     // ekhane loop ulta dik diye cholse karon [i ^ (1 << (j - 1))] eta boro value te jeye value niye ashe, tai boro gulo age calculate korte hobe
-        for(int j = 1; j <= sz; j++){
+    for(int i = (1 << btSz) - 1; i > 0; i--){     // ekhane loop ulta dik diye cholse karon [i ^ (1 << (j - 1))] eta boro value te jeye value niye ashe, tai boro gulo age calculate korte hobe
+        for(int j = 1; j <= btSz; j++){
             if((i >> (j - 1)) & 1){
                 dpAnd[i][j] = dpAnd[i][j - 1];
             }

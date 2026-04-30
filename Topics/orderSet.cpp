@@ -1,3 +1,8 @@
+
+// multiset orderset for pair(orderset a o evabe pair kora jabe)
+template<typename T> using o_multiset = tree<pair<T,int>, null_type, less<pair<T,int>>, rb_tree_tag, tree_order_statistics_node_update>;
+
+
 #include<ext/pb_ds/assoc_container.hpp>
 #include<ext/pb_ds/tree_policy.hpp>
 using namespace __gnu_pbds;
@@ -16,6 +21,8 @@ using namespace std;
 
 template <typename T> using o_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
 template <typename T, typename R> using o_map = tree<T, R, less<T>, rb_tree_tag, tree_order_statistics_node_update>;
+
+
 int main() {
   int i, j, k, n, m;
   o_set<int>se;

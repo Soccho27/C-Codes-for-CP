@@ -22,7 +22,8 @@
 			"#define all(i) i.begin(),i.end()",
 			"#define SS \" \"",
 			"#define ddd cout<<\"D\"<<nl;",
-			"#define pp(x) cout<<x<<nl",
+			"#define yes cout<<\"YES\"<<nl",
+			"#define no cout<<\"NO\"<<nl",
 			"const char nl = '\\n';",
 			"",
 			"const int mod1 = 1e9 + 7;",
@@ -73,6 +74,7 @@
 			"",
 			"template <typename T> using o_set = tree<T, null_type, less<T>, rb_tree_tag, tree_order_statistics_node_update>;",
 			"template <typename T, typename R> using o_map = tree<T, R, less<T>, rb_tree_tag, tree_order_statistics_node_update>;",
+			"template<typename T> using o_multiset = tree<pair<T,int>, null_type, less<pair<T,int>>, rb_tree_tag, tree_order_statistics_node_update>;",
 			"",
 			"// order_of_key(k) //this returns the count of values that is **less** than k",
 			"// find_by_order(k) // this returns the value at index k(0 - based indexing)"
@@ -115,7 +117,7 @@
 	"binPow": {
 		"prefix": "qwbinpow",
 		"body": [
-			"int binPow(int a, int b, int mod){",
+			"int binPow(int a, int b){",
 			"    int res = 1;",
 			"    while(b > 0){",
 			"        if(b & 1){",
