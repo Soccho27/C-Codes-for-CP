@@ -1,3 +1,6 @@
+#include<bits/stdc++.h>
+using namespace std;
+
 const int N = 1e5 + 9, LG = 18, inf = 1e9 + 9;
 
 struct ST {
@@ -106,3 +109,33 @@ int query(int u, int v) {
   if (v != l) ans = max(ans, query_up(v, kth(v, dep[v] - dep[l] - 1)));
   return ans;
 }
+int32_t main() {
+  ios_base::sync_with_stdio(0);
+  cin.tie(0);
+
+  cin >> n;
+  for (int i = 1; i < n; i++) {
+    int u, v;
+    cin >> u >> v;
+    g[u].push_back(v);
+    g[v].push_back(u);
+  }
+  dfs(1);
+  head[1] = 1;
+  dfs_hld(1);
+  int q;
+  cin >> q;
+  t.build(1, 1, n);
+  while (q--) {
+    string ty;
+    int u, v;
+    cin >> ty >> u >> v;
+    if (ty == "add") {
+      t.upd(1, 1, n, st[u], en[u], v);
+    } else {
+      cout << query(u, v) << '\n';
+    }
+  }
+  return 0;
+}
+//https://www.hackerrank.com/challenges/subtrees-and-paths/problem

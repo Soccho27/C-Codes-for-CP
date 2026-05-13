@@ -1,3 +1,27 @@
+//https://cses.fi/problemset/task/2115
+#include <bits/stdc++.h>
+#define int long long
+#define fr(i, a, b) for (int i = a; i < b; i++)
+#define mmst(i, a) memset(i,a,sizeof(i))
+#define all(i) i.begin(),i.end()
+#define allr(i) i.rbegin(),i.rend()
+#define fast                          \
+    ios_base::sync_with_stdio(false); \
+    cin.tie(NULL);                    \
+    cout.tie(NULL);
+#define SS " "
+#define ddd cout<<"D"<<endl;
+#define dd(i) cout<<#i<<" "<<i<<endl;
+#define yes cout << "Yes" << endl
+#define no cout << "No" << endl
+const char nl = '\n';
+using namespace std;
+
+const int mod1 = 1e9 + 7;
+const int mod2 = 998244353;
+const int sz = 1e6 + 5;
+const int inf = 1e18;
+
 const int N = 3e5 + 9;
 
 const double PI = acos(-1);
@@ -46,4 +70,47 @@ vector<long long> multiply(vector<int> &a, vector<int> &b) {
     for(int i = 0; i < sz; ++i) ret[i] = (long long) round(z[i].a);
     while((int)ret.size() > 1 && ret.back() == 0) ret.pop_back();
     return ret;
+}
+
+void solve()
+{
+    string s;cin>>s;
+    int n;n = s.size();
+
+    vector<int> prefSum(n + 1, 0), boro(n + 1, 0), choto(n + 1, 0);    
+    // currently every x^i has a zero co-efficient
+
+    for(int i = 1; i <= n; i++)prefSum[i] = prefSum[i - 1] + s[i - 1] - '0';
+
+    for(int i = 0; i <= n; i++)boro[prefSum[i]]++, choto[n - prefSum[i]]++; 
+    // incrementing co-efficients, multiplied with n with choto 
+    // because j - i can be negative which maybe cannot be compute with fft
+
+    vector<int> mulPoly = multiply(boro, choto);
+    int zeroAns = (mulPoly[n] - (n + 1)) / 2; 
+    // (n + 1) is the empty substrings, divide by 2 
+    // because we are counting i - j and j - i twice which are same in this case 
+    // because i - j = j - i = 0
+
+    cout<<zeroAns<<" ";
+
+    while(mulPoly.size() <= 2 * n)mulPoly.push_back(0); 
+    // shohag bhai er template a return vector er size vary kore constraints er upure
+
+    for(int i = n + 1; i <= 2 * n; i++)cout<<mulPoly[i]<<" ";   
+    // starting from n because we take only positive power co-efficient
+    
+    cout<<endl;
+}
+
+signed main()
+{
+    fast int T = 1;
+    // cin >> T;
+    for (int tc = 1; tc <= T; tc++)
+    {
+        // cout<<"Case "<<tc<<": ";
+        solve();
+    }
+    return 0;
 }
